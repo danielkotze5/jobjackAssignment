@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Node server for directory listing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Kotze",
+  "license": "ISC",
+  "dependencies": {
+    "co-fs": "^1.2.0",
+    "koa": "^1.0.0",
+    "koa-router": "^5.4.2",
+    "koa-static": "^1.4.9"
+  }
+}
