@@ -8,7 +8,9 @@ FileManager.getStats = function *(p) {
   return {
     folder: stats.isDirectory(),
     size: stats.size,
-    mtime: stats.mtime.getTime()
+    //birthtime: stats.birthtime.getTime()
+	birthdate: stats.birthtime.toLocaleDateString("en-US"),
+	birthtime: stats.birthtime.toLocaleTimeString("en-US"),
   }
 };
 
