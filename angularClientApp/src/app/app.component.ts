@@ -1,12 +1,5 @@
-import { Component, ɵConsole } from '@angular/core';
-import {HttpClientModule, HttpClient, HttpParams} from '@angular/common/http';
-
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
-
-//import 'rxjs/add/operator/map';
-import {map} from 'rxjs/operators';
-import{myFolder} from './fileInfo';
+import {Component} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -15,37 +8,54 @@ import{myFolder} from './fileInfo';
 })
 export class AppComponent {
 
-  //readonly ROOT_URL = 'https://jsonplaceholder.typicode.com'
-  //readonly ROOT_URL = 'http://localhost:5000/asb/views'
-  //readonly ROOT_URL = 'http://localhost:5000/asb/'
-  readonly ROOT_URL = 'http://localhost:5000/'   //werk vir angularClientApp
-  readonly POST_URL = '/views'
-  readonly publicForClient = 'http://localhost:5000/publicForClient'
-  readonly views = 'http://localhost:5000/views'
-  readonly dott = '.';
-  //readonly ROOT_URL = 'http://localhost:5000/'
+  readonly ROOT_URL = 'http://localhost:5000'   
+  directoryArray:any = [];    
+  title = 'clientApp';  
+  posts: any;
+ 
+  constructor(private http: HttpClient){}
+    
+  getRoot(){
+    //cleanup the stack
+    if(this.directoryArray.length  >= 1)
+    {     
+      for(let i = this.directoryArray.length; i >= 1; i--){
+        this.directoryArray.pop();
+        console.log('POP');
+        console.log("this.directoryArray[ " + i + "] = " + this.directoryArray[i]);
+      }     
+    }
 
-title = 'angularClientApp';
-myFolder:any;
-posts: any;
-posts2: any;
+    this.directoryArray.push(this.ROOT_URL + "/");    
+    console.log("[length] = " + (this.directoryArray.length));    
+    this.posts = this.http.get(this.directoryArray[this.directoryArray.length -1], {}) 
+    return this.posts;            
+  }
 
-constructor(private http: HttpClient){}
+  refreshOneBack(){
+    if(this.directoryArray.length > 1)
+    {
+      this.directoryArray.pop();       
+      console.log("[length] = " + (this.directoryArray.length));  
+      this.posts = this.http.get(this.directoryArray[this.directoryArray.length -1], {}) 
+    }
+  }
 
-getPosts(): Observable<myFolder[]>{  
-  //this.posts = this.http.get(this.ROOT_URL + '/posts') 
-  this.posts = this.http.get(this.ROOT_URL)  // correct original
-  //this.posts = this.http.get<myFolder[]>(this.ROOT_URL); 
-  //this.posts.name = "hello";
-  return this.posts;  
-  //this.myFolder = (this.posts).map(posts => posts.folder);
-}
+  refreshForward(userInput){
+    if(!userInput.includes("."))
+    {
+      try {        
+        this.directoryArray.push(this.directoryArray[this.directoryArray.length-1] + userInput + "/");     
+        console.log("[length] = " + (this.directoryArray.length));           
+        this.posts = this.http.get(this.directoryArray[this.directoryArray.length -1], {})       
+      } catch (error) {
+        console.log("Empty directory");
+      }      
+    }
+    else{
 
-/*
-postRequest(){
-    this.posts2 = this.http.post(this.ROOT_URL,this.dott)
-    //console.log("&&&&&&&&&&&" + this.posts2);
-    return this.posts2;
-}
-*/
+      //Could add file download here if desired.
+
+    }  
+  }
 }

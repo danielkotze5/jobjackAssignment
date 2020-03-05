@@ -3,30 +3,38 @@
 <html lang="en">
 <head>
   <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-  <script src="//cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script> 
- <script src="./makeTableInteractive.ts"></script>
+  <script src="//cdn.bootcss.com/angular.js/1.4.5/angular.min.js"></script>
 </head>
 <body>
-  <h1> Directory listing from server</h1>
-  <button (click)="getPosts()">send GET request to server</button>
-  <!--<button (click)="postRequest()"> Try POST to localhost5000</button>-->
-  <div >    
+  <h1> Directory listing from server</h1> 
+      <button (click)="getRoot()">Get root</button>    
+  <div >   
+     
+<ol class = "breadcrumb">
+  <li  (click)="getRoot()"> <a href = "#">Home</a></li>
+  <li  (click)="refreshOneBack()"> <a href = "#">Back</a></li>
+</ol>
+
     <table class="table table-bordered table-hover"> 
     <thead>
-      <tr class="sortable">       
+      <tr class="sortable">        
         <th>Type</th>
         <th>Name</th>
         <th>Size</th>
         <th>Birth Date</th>
+        <th>Persmssions Special</th>
+        <th>Permissions User</th>
+        <th>Permissions Group</th>
+        <th>Permissions Other</th>
       </tr>
     </thead>
-    <tbody>
-    <!--<tr *ngFor="let post of posts | async" class="sortable" ng-repeat="file in FM.curFiles | orderBy:'folder'">      -->
-      <tr *ngFor="let post of posts | async" ng-repeat="file in here | orderBy:'folder'">
-      <td><span class="{{post.folder ? 'glyphicon glyphicon-folder-open' : 'glyphicon glyphicon-file'}}"></span></td>
-      <td ng-click="clickFile(file)"><a>{{post.name}}</a></td>      
+    <tbody>    
+      <tr *ngFor="let post of posts | async">
+      <td><span class="{{post.folder ? 'glyphicon glyphicon-folder-open' : 'glyphicon glyphicon-file'}}"></span></td>    
+     <td (click)="refreshForward(post.name)"><a>{{post.name}}</a></td>
       <td>{{post.size}} kB</td>
-      <td>{{post.birthdate}} {{post.birthtime}}</td>    
+      <td>{{post.birthdate}} {{post.birthtime}}</td>
+      <td>"processPermissionSpecial()"</td>    
     </tr> 
     </tbody>
     </table>  
