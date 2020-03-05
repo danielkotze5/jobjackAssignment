@@ -22,7 +22,7 @@
         <th>Name</th>
         <th>Size</th>
         <th>Birth Date</th>
-        <th>Persmssions Special</th>
+        <th>Persmissions Special</th>
         <th>Permissions User</th>
         <th>Permissions Group</th>
         <th>Permissions Other</th>
@@ -34,7 +34,11 @@
      <td (click)="refreshForward(post.name)"><a>{{post.name}}</a></td>
       <td>{{post.size}} kB</td>
       <td>{{post.birthdate}} {{post.birthtime}}</td>
-      <td>"processPermissionSpecial()"</td>    
+      <td>{{post.permissionSpecial}}</td>
+      <td>{{post.permissionUser}}</td> 
+      <td>{{post.permissionGroup}}</td> 
+      <td>{{post.permissionOther}}</td>  
+
     </tr> 
     </tbody>
     </table>  
