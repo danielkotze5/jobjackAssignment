@@ -5,4 +5,7 @@ run nodemon index.js in die root directory. Die server is nog nie ge-dockerize n
 Run die docker image of run ng serve in die root directory. Client runs on localhost port 4200.
 
 #Notas:
-Let wel ek moes die Moesif CORS google chrom extention install om CORS errors te vermy. Weet nie of hierdie vir julle sal help nie.
+- Ek moes die Moesif CORS google chrome extention install om CORS errors te vermy vir same origin policy.
+- Todo: Maak client app mobile friendly.
+
+
